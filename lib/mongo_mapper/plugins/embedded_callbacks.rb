@@ -18,13 +18,14 @@ module MongoMapper
           embedded_docs += Array(get_proxy(association).send(:load_target))
         end
 
-        block = embedded_docs.inject(block) do |chain, doc|
-          if doc.class.respond_to?("_#{callback}_callbacks")
-            lambda { doc.run_callbacks(callback, *args, &chain) }
-          else
-            chain
-          end
-        end
+        # block = embedded_docs.inject(block) do |chain, doc|
+        #  if doc.class.respond_to?("_#{callback}_callbacks")
+        #    lambda { doc.run_callbacks(callback, *args, &chain) }
+        #  else
+        #    chain
+        #  end
+        #end
+        
         super callback, *args, &block
       end
     end
